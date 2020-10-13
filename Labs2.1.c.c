@@ -26,12 +26,13 @@ double ExternalElement(double x, int i)
     double retsum = InternalSum(x, i);
     if (i%2 == 0)
     {
-    	return retsum;
+    	retsum = retsum;
     }
     else
     {
-	return (-1)*retsum;
+	retsum = (-1)*retsum;
     }
+    return retsum;
 }
  
 double accuracy(int E)
