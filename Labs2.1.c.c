@@ -6,7 +6,6 @@ double power(double x, int i)
     double stepen = 1;
     for (int k = 1; k <= i; k++)
         stepen = stepen*x;
-    printf("x^i = %lf\n", stepen);
     return stepen;
 }
  
@@ -19,24 +18,21 @@ double InternalSum (double x, int i)
         sum = sum + power(x, i)/(j+1);
         j = j + 1;
     }
-    printf("InternalSum = %lf\n", sum);
     return sum;
 }
  
 double ExternalElement(double x, int i)
 {
+    double retsum;
     if (i%2 == 0)
     {
-	double retsum = InternalSum(x, i);
-	printf("ExternalSum = %lf\n", retsum);
-        return retsum;
+    	retsum = InternalSum(x, i);
     }
     else
     {
-	double retsum = (-1)*InternalSum(x, i);
-	printf("ExternalSum = %lf\n", retsum);
-        return retsum;
+	retsum = (-1)*InternalSum(x, i);
     }
+    return retsum;
 }
  
 double accuracy(int E)
@@ -47,7 +43,6 @@ double accuracy(int E)
         accuracy = accuracy / 10;
         E = E - 1;
     }
-    printf("accuracy = %lf\n", accuracy);
     return accuracy;
 }
 
@@ -59,11 +54,10 @@ double check(double x, int E)
     double current = ExternalElement(x, 1);
     double accur = accuracy(E);
     int i = 1;
-    while (fabs(fabs(current) - fabs(previous)) <= accur)
+    while (fabs(current - previous) > accur)
     {
         i++;
-   	printf("i = %d\n", i);
-        previous = current;
+   	previous = current;
         current = ExternalElement(x, i);
         sum = sum + current;
     }
@@ -81,7 +75,3 @@ int main()
     double answer = check(x, E);
     printf("Answer = %lf\n", answer);
 }
-
-
-
-
