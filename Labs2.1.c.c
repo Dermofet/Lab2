@@ -6,31 +6,37 @@ double power(double x, int i)
     double stepen = 1;
     for (int k = 1; k <= i; k++)
         stepen = stepen*x;
-    printf("x^i = %lf\n", &stepen);
+    printf("x^i = %lf\n", stepen);
     return stepen;
 }
  
 double InternalSum (double x, int i)
 {
-    double j = 0;
+    int j = 0;
     double sum = 0;
     while (j <= i)
     {
         sum = sum + power(x, i)/(j+1);
         j = j + 1;
     }
-    printf("sum = %lf\n", &sum);
+    printf("InternalSum = %lf\n", sum);
     return sum;
 }
  
 double ExternalElement(double x, int i)
 {
     if (i%2 == 0)
-    	{printf("InternalSum = %lf\n", InternalSum(x, i));
-        return InternalSum(x, i);}
+    {
+	double retsum = InternalSum(x, i);
+	printf("ExternalSum = %lf\n", retsum);
+        return retsum;
+    }
     else
-    	{printf("(-1)*InternalSum(x, i) = %lf\n", (-1)*InternalSum(x, i));
-        return (-1)*InternalSum(x, i);}
+    {
+	double retsum = (-1)*InternalSum(x, i);
+	printf("ExternalSum = %lf\n", retsum);
+        return retsum;
+    }
 }
  
 double accuracy(int E)
@@ -38,22 +44,25 @@ double accuracy(int E)
     double accuracy = 1;
     while (E >= 0)
     {
-        accuracy = accuracy/10;
+        accuracy = accuracy / 10;
         E = E - 1;
     }
-    printf("accuracy = %lf\n", &accuracy);
+    printf("accuracy = %lf\n", accuracy);
     return accuracy;
 }
+
  
 double check(double x, int E)
 {
     double sum = 0;
-    double current = ExternalElement(x, 1);
     double previous = ExternalElement(x, 0);
+    double current = ExternalElement(x, 1);
+    double accur = accuracy(E);
     int i = 1;
-    while (fabs(current) - fabs(previous) <= accuracy(E))
+    while (fabs(fabs(current) - fabs(previous)) <= accur)
     {
         i++;
+   	printf("i = %d\n", i);
         previous = current;
         current = ExternalElement(x, i);
         sum = sum + current;
@@ -68,10 +77,11 @@ int main()
     printf("Enter the accuracy\n");
     scanf("%d", &E);
     printf("Enter x\n");
-    scanf("%f", &x);
+    scanf("%lf", &x);
     double answer = check(x, E);
-    printf("%lf", &answer);
+    printf("Answer = %lf\n", answer);
 }
+
 
 
 
