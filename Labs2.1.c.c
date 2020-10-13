@@ -24,14 +24,8 @@ double InternalSum (double x, int i)
 double ExternalElement(double x, int i)
 {
     double retsum = InternalSum(x, i);
-    if (i%2 == 0)
-    {
-    	retsum = retsum;
-    }
-    else
-    {
-	retsum = (-1)*retsum;
-    }
+    if (i%2 != 0)
+      	retsum = (-1)*retsum;
     return retsum;
 }
  
