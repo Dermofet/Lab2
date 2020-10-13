@@ -48,7 +48,7 @@ double check(double x, int E)
     double current = ExternalElement(x, 1);
     double accur = accuracy(E);
     int i = 1;
-    while (fabs(current - previous) > accur)
+    while (fabs(fabs(current) - fabs(previous)) > accur)
     {
         i++;
    	previous = current;
