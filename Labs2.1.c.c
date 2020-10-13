@@ -66,6 +66,12 @@ int main()
     scanf("%d", &E);
     printf("Enter x\n");
     scanf("%lf", &x);
+    if (x >= 1)
+    {
+        printf("ERROR\nIt is impossible to calculate the sum of a numeric row, because it is divergent.\n");
+	       return 1;
+    }
+
     double answer = check(x, E);
     printf("Answer = %lf\n", answer);
 }
